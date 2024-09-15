@@ -1,9 +1,28 @@
 package fa.dfa;
-import java.util.Set;
 
+import java.util.Set;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import fa.State;
 
 public class DFA implements DFAInterface {
+
+    LinkedHashSet<Character> sigma;
+    LinkedHashSet<DFAState> states;
+    String startState;
+    LinkedHashSet<DFAState> finalStates;
+    LinkedHashMap<DFAState, LinkedHashSet<DFAState>> transitionTable;
+
+    public DFA() {
+
+    sigma = new LinkedHashSet<>();
+    states = new LinkedHashSet<>();
+    startState = "";
+    finalStates = new LinkedHashSet<DFAState>();
+    transitionTable = new LinkedHashMap<>();
+
+    }
 
     @Override
     public boolean addState(String name) {
@@ -37,8 +56,7 @@ public class DFA implements DFAInterface {
 
     @Override
     public Set<Character> getSigma() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSigma'");
+        return sigma;
     }
 
     @Override
@@ -70,5 +88,5 @@ public class DFA implements DFAInterface {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'swap'");
     }
-    
+
 }
