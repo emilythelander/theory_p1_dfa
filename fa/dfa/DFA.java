@@ -1,9 +1,7 @@
 package fa.dfa;
 
-import java.util.Set;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.LinkedHashMap;
+import java.util.*;
+
 import fa.State;
 
 public class DFA implements DFAInterface {
@@ -19,33 +17,43 @@ public class DFA implements DFAInterface {
     sigma = new LinkedHashSet<>();
     states = new LinkedHashSet<>();
     startState = "";
-    finalStates = new LinkedHashSet<DFAState>();
+    finalStates = new LinkedHashSet<>();
     transitionTable = new LinkedHashMap<>();
 
     }
 
     @Override
     public boolean addState(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addState'");
+
+        return states.add(new DFAState(name));
     }
 
     @Override
     public boolean setFinal(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setFinal'");
+        for (DFAState state : states) {
+            if (state.getName().equals(name)) {
+                states.remove(state);
+                return finalStates.add(state);
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean setStart(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setStart'");
+        for (DFAState state : states) {
+            if (state.getName().equals(name)) {
+                states.remove(state);
+                startState = name;
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public void addSigma(char symbol) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addSigma'");
+        sigma.add(symbol);
     }
 
     @Override
@@ -61,20 +69,34 @@ public class DFA implements DFAInterface {
 
     @Override
     public State getState(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getState'");
+        for (State state : states){
+            if (state.getName().equals(name)){
+                return state;
+            }
+        }
+        for (State state : finalStates){
+            if (state.getName().equals(name)){
+                return state;
+            }
+        }
+
+        return null;
     }
 
     @Override
     public boolean isFinal(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isFinal'");
+        if (finalStates.contains(name)){
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean isStart(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isStart'");
+        if (name.equals(startState)){
+            return true;
+        }
+        return false;
     }
 
     @Override
