@@ -40,6 +40,7 @@ public class DFATest {
 	
 	@Test
 	public void test1_1() {
+		@SuppressWarnings("unused")
 		DFA dfa = dfa1();
 		System.out.println("dfa1 instantiation pass");
 	}
@@ -166,6 +167,7 @@ public class DFATest {
 	
 	@Test
 	public void test2_1() {
+		@SuppressWarnings("unused")
 		DFA dfa = dfa2();
 		System.out.println("dfa2 instantiation pass");
 	}
@@ -313,6 +315,7 @@ private DFA dfa3() {
 
 @Test
 public void test3_1() {
+	@SuppressWarnings("unused")
 	DFA dfa = dfa3();
 	
 	System.out.println("dfa3 instantiation pass");
