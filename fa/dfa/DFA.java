@@ -79,19 +79,14 @@ public class DFA implements DFAInterface {
         sigma.add(symbol);
     }
 
-    @Override
+   @Override
     public boolean accepts(String s) {
-        // TODO Still incomplete
-        Character current = ' ';
         for (int i = 0; i < s.length(); i++) {
             if (!sigma.contains(s.charAt(i))) {
 
                 return false;
             }
-            if (sigma.contains(s.charAt(i))){
-                current = s.charAt(i);
 
-            }
 
         }
         State currentState = getState(startState);
@@ -100,11 +95,22 @@ public class DFA implements DFAInterface {
             return false;
         }
 
-        
-        return true;
+        for (int i = 0; i < s.length(); i++){
 
-        //Do another loop through the string
-        //Need to
+
+            List<Map<Character,DFAState>> transitions = transitionTable.get(currentState);
+
+            if (transitions != null){
+                for (Map<Character, DFAState> transition : transitions){
+                    if (transition.containsKey(s.charAt(i))){
+                        currentState = transition.get(s.charAt(i));
+
+                    }
+                }
+            }
+        }
+        
+        return finalStates.contains(currentState);
 
     }
 
