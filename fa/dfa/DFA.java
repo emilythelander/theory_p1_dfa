@@ -119,7 +119,6 @@ public class DFA implements DFAInterface {
     @Override
     public Set<Character> getSigma() {
         return sigma;
-        return sigma;
     }
 
     @Override
@@ -195,7 +194,7 @@ public class DFA implements DFAInterface {
             return false;
         }
 
-        //HashMap<Character, DFAState> transitions = new HashMap<>();
+        HashMap<Character, DFAState> transitions = new HashMap<>();
         transitions.put(onSymb,toState2);
         if (transitionTable.containsKey(fromState2)){
 
@@ -266,5 +265,38 @@ public class DFA implements DFAInterface {
         return newDFA;
     }
 
+    @Override
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Q = { ");
+        for (DFAState state : states) {
+            sb.append(state.getName()).append(" ");
+        }
+        sb.append("}\n");
+        sb.append("Sigma = { ");
+        for (Character alnum : sigma) {
+            sb.append(alnum).append(" ");
+        }
+        sb.append("}\n");
+        sb.append("delta =\n");
+        sb.append("    ");
+        sb.append(transitionTable.toString());
+        sb.append("\n");
+
+        sb.append("q0 = ");
+        sb.append(startState);
+        sb.append("\n");
+
+        sb.append("F = { ");
+        for (DFAState state : finalStates) {
+            sb.append(state.getName());
+            sb.append(" ");
+        }
+        sb.append("}\n");
+
+        return sb.toString();
+    }
 
 }
