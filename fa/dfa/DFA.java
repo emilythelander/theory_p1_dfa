@@ -17,6 +17,7 @@ public class DFA implements DFAInterface {
     LinkedHashSet<DFAState> states;
     String startState;
     LinkedHashSet<DFAState> finalStates;
+    HashMap<Character, DFAState> transitions;
     LinkedHashMap<DFAState, ArrayList<Map<Character,DFAState>>> transitionTable;
 
     /**
@@ -28,6 +29,7 @@ public class DFA implements DFAInterface {
         states = new LinkedHashSet<>();
         startState = "";
         finalStates = new LinkedHashSet<>();
+        transitions = new HashMap<>();
         transitionTable = new LinkedHashMap<>();
 
     }
@@ -155,7 +157,6 @@ public class DFA implements DFAInterface {
 
     @Override
     public boolean addTransition(String fromState, String toState, char onSymb) {
-        // TODO Still incomplete
 
         //Check that onSymb is in sigma
         if (!sigma.contains(onSymb)) {
@@ -193,7 +194,7 @@ public class DFA implements DFAInterface {
             return false;
         }
 
-        HashMap<Character, DFAState> transitions = new HashMap<>();
+        //HashMap<Character, DFAState> transitions = new HashMap<>();
         transitions.put(onSymb,toState2);
         if (transitionTable.containsKey(fromState2)){
 
@@ -215,8 +216,53 @@ public class DFA implements DFAInterface {
 
     @Override
     public DFA swap(char symb1, char symb2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'swap'");
+        
+        if (symb1 == symb2) {
+            return null;
+        }
+        
+        DFA newDFA = new DFA();
+        String tempStart = ""; 
+        List<String> tempFinal = new ArrayList<String>();
+
+        for (Character alnum : sigma) {
+            newDFA.addSigma(alnum);
+        }
+
+        for (State state : states) {
+            newDFA.addState(state.getName());
+            if (isStart(state.getName())) {
+                tempStart = state.getName();
+            }
+            if (isFinal(state.getName())) {
+                tempFinal.add(state.getName());
+            }
+        }
+
+        //If the original DFA is missing a start or end state
+        if (tempStart == "" || tempFinal.size() == 0) {
+            return null;
+        }
+
+        newDFA.setStart(tempStart);
+        for (String i : tempFinal) {
+            newDFA.setFinal(i);
+        }
+
+
+        HashMap<Character, DFAState> newTransitions = new HashMap<>();
+        for (Map.Entry<Character, DFAState> tran : transitions.entrySet()) {
+
+            newTransitions.put(tran.getKey(), tran.getValue());
+        }
+
+        
+
+
+
+
+
+        return newDFA;
     }
 
 }
