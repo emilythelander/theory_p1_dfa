@@ -119,7 +119,6 @@ public class DFA implements DFAInterface {
     @Override
     public Set<Character> getSigma() {
         return sigma;
-        return sigma;
     }
 
     @Override
